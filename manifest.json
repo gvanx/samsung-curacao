@@ -1,0 +1,9 @@
+{
+  "name": "Samsung Curaçao",
+  "short_name": "Samsung CW",
+  "description": "Samsung Galaxy phones at Connections Curaçao",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08080c",
+  "theme_color": "#4ca4d4"
+}
