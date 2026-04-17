@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galaxy A37 vs A57 5G — Samsung Curaçao</title>
+  <meta name="description" content="Side-by-side comparison. Same DNA — A57 adds OIS, faster chip, slimmer build.">
+  <meta property="og:title" content="Galaxy A37 vs A57 5G — Samsung Curaçao">
+  <meta property="og:description" content="Side-by-side comparison. Same DNA — A57 adds OIS, faster chip, slimmer build.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://samsungcuracao.com/compare">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://samsungcuracao.com/compare">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%237878d4'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/shared.css">
+  <style>
+    /* ---- Compare table ---- */
+    .compare-table {
+      margin-top: 1.6rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .compare-head {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      padding: 0.9rem 1.2rem;
+    }
+    .phone-header {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      text-align: center;
+    }
+    .phone-header.a37 { color: var(--accent-a37); }
+    .phone-header.a57 { color: var(--accent-a57); }
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      padding: 0.9rem 1.2rem;
+      border-bottom: 1px dashed rgba(120,130,210,0.12);
+      font-size: 0.95rem;
+      align-items: center;
+    }
+    .compare-row:last-child { border-bottom: 0; }
+    .compare-row .label { color: var(--muted); }
+    .compare-row .val { font-weight: 700; text-align: center; }
+    .compare-row .upgrade {
+      font-weight: 700;
+      text-align: center;
+      color: var(--accent-a57);
+      background: rgba(180,132,240,0.1);
+      border-radius: var(--radius-sm);
+      padding: 0.25rem 0.5rem;
+    }
+
+    /* ---- Shared features strip ---- */
+    .shared-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.9rem;
+      margin-top: 1.6rem;
+    }
+    .shared-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      display: grid; gap: 0.45rem; align-content: flex-start;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+    .shared-card:hover { transform: translateY(-3px); border-color: rgba(120,130,210,0.45); }
+    .shared-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(145deg, rgba(76,164,212,0.25), rgba(180,132,240,0.2));
+      display: grid; place-items: center;
+      font-size: 0.82rem; font-weight: 800;
+      font-family: var(--font-display); color: var(--brand-2);
+    }
+    .shared-label { margin: 0; font-weight: 700; font-size: 0.95rem; }
+    .shared-value { margin: 0; color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
+    .shared-hl { margin-top: auto; color: var(--brand); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.02em; }
+
+    /* ---- Compare CTA row ---- */
+    .compare-cta {
+      margin-top: 1.8rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    /* ---- Store panel ---- */
+    .store-panel {
+      margin-top: 1.6rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(165deg, rgba(12,12,18,0.9), rgba(10,10,14,0.88));
+      box-shadow: var(--shadow);
+      padding: 1.8rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .store-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.65rem; }
+    .store-item { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.9rem; color: #b0b0c8; }
+    .store-item strong { color: var(--text); }
+    .store-cta { display: flex; flex-direction: column; gap: 0.5rem; align-self: center; }
+    .store-cta .btn { text-align: center; white-space: nowrap; min-width: 200px; }
+    .store-note { margin: 0.6rem 0 0; color: var(--muted); font-size: 0.8rem; text-align: center; line-height: 1.4; }
+    .panel-title { margin: 0 0 1rem; font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+
+    @media (max-width: 960px) {
+      .shared-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 840px) {
+      .store-panel { grid-template-columns: 1fr; }
+      .store-cta { align-self: stretch; }
+      .store-cta .btn { min-width: 0; width: 100%; }
+    }
+    @media (max-width: 600px) {
+      .shared-strip { grid-template-columns: 1fr; }
+      .compare-head,
+      .compare-row { grid-template-columns: 1fr 0.85fr 0.85fr; font-size: 0.88rem; padding: 0.75rem 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="shell topbar-row">
+      <a href="/" class="brand" aria-label="Samsung Curaçao home">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Samsung Curaçao</span>
+      </a>
+      <div class="topbar-actions">
+        <a class="nav-back" href="/">← All Samsung</a>
+        <span class="nav-tag">Compare</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── Compare ── -->
+    <section>
+      <div class="shell">
+        <h2 class="section-title">A37 vs A57 5G</h2>
+        <p class="section-note">Same DNA — IP68, 5000mAh, 120Hz AMOLED, 6 years of updates. The A57 adds OIS, a faster chip, and a slimmer build.</p>
+
+        <div class="compare-table reveal">
+          <div class="compare-head">
+            <div></div>
+            <div class="phone-header a37">A37 5G</div>
+            <div class="phone-header a57">A57 5G</div>
+          </div>
+          <div class="compare-row">
+            <div class="label">Display</div>
+            <div class="val">6.7&Prime; FHD+ AMOLED 120Hz</div>
+            <div class="val">6.7&Prime; FHD+ AMOLED 120Hz</div>
+          </div>
+          <div class="compare-row">
+            <div class="label">Processor</div>
+            <div class="val">Exynos 1480</div>
+            <div class="val upgrade">Exynos 1680</div>
+          </div>
+          <div class="compare-row">
+            <div class="label">Main camera</div>
+            <div class="val">50MP</div>
+            <div class="val upgrade">50MP + OIS</div>
+          </div>
+          <div class="compare-row">
+            <div class="label">Ultra-wide</div>
+            <div class="val">8MP</div>
+            <div class="val upgrade">12MP</div>
+          </div>
+          <div class="compare-row">
+            <div class="label">Macro</div>
+            <div class="val">5MP</div>
+            <div class="val">5MP</div>
+          </div>
+          <div class="compare-row">
+            <div class="label">Front camera</div>
+            <div class="val">12MP</div>
+            <div class="val">12MP</div>
+          </div>
+          <div class="compare-row">
+            <div class="label">Battery</div>
+            <div class="val">5000mAh &middot; 45W</div>
+            <div class="val">5000mAh &middot; 45W</div>
+          </div>
+          <div class="compare-row">
+            <div class="label">RAM / Storage</div>
+            <div class="val">12GB / 256GB</div>
+            <div class="val upgrade">12GB / up to 512GB</div>
+          </div>
+          <div class="compare-row">
+            <div class="label">Weight</div>
+            <div class="val">196g &middot; 7.4mm</div>
+            <div class="val upgrade">179g &middot; 6.9mm</div>
+          </div>
+          <div class="compare-row">
+            <div class="label">Protection</div>
+            <div class="val">IP68 &middot; Victus+</div>
+            <div class="val">IP68 &middot; Victus+</div>
+          </div>
+          <div class="compare-row">
+            <div class="label">OS</div>
+            <div class="val">Android 16 &middot; 6yr updates</div>
+            <div class="val upgrade">Android 16 &middot; Galaxy AI</div>
+          </div>
+        </div>
+
+        <div class="compare-cta">
+          <a class="btn btn-a37" href="/a37">Explore A37</a>
+          <a class="btn btn-a57" href="/a57">Explore A57</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Shared features ── -->
+    <section id="features">
+      <div class="shell">
+        <h2 class="section-title">What they share</h2>
+        <p class="section-note">Both phones get the features that used to be flagship-only.</p>
+
+        <div class="shared-strip">
+          <article class="shared-card reveal">
+            <div class="shared-icon" aria-hidden="true">IP68</div>
+            <h3 class="shared-label">Water &amp; Dust Proof</h3>
+            <p class="shared-value">IP68 rated. Survives 1.5m underwater for 30 minutes. Rain, pool, accidents &mdash; covered.</p>
+            <div class="shared-hl">IP68 certified</div>
+          </article>
+          <article class="shared-card reveal">
+            <div class="shared-icon" aria-hidden="true">120</div>
+            <h3 class="shared-label">120Hz Super AMOLED</h3>
+            <p class="shared-value">6.7-inch FHD+ display with adaptive refresh. Gorilla Glass Victus+ on both models.</p>
+            <div class="shared-hl">Victus+ protection</div>
+          </article>
+          <article class="shared-card reveal">
+            <div class="shared-icon" aria-hidden="true">45W</div>
+            <h3 class="shared-label">5000mAh + 45W</h3>
+            <p class="shared-value">All-day battery with 45W fast charging. Hours of use from minutes on the charger.</p>
+            <div class="shared-hl">All-day battery</div>
+          </article>
+          <article class="shared-card reveal">
+            <div class="shared-icon" aria-hidden="true">6yr</div>
+            <h3 class="shared-label">6 Years of Updates</h3>
+            <p class="shared-value">Six generations of Android OS upgrades and six years of security patches. Current through 2032.</p>
+            <div class="shared-hl">Android 16 &rarr; 22</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Visit ── -->
+    <section id="stores">
+      <div class="shell">
+        <h2 class="section-title">Come see them in person</h2>
+        <p class="section-note">Try both side by side. Walk in, compare, and walk out with your new Galaxy.</p>
+
+        <div class="store-panel reveal">
+          <div>
+            <h3 class="panel-title">Our stores</h3>
+            <ul class="store-list">
+              <li class="store-item">
+                <span>📍</span>
+                <div><strong>Connections Punda</strong><br>Ruyterkade 28, Willemstad</div>
+              </li>
+              <li class="store-item">
+                <span>📍</span>
+                <div><strong>Connections Otrobanda</strong><br>Bredestraat 12, Willemstad</div>
+              </li>
+              <li class="store-item">
+                <span>🕔</span>
+                <div>Mon&ndash;Sat 9:00&ndash;18:00</div>
+              </li>
+            </ul>
+          </div>
+          <div class="store-cta">
+            <a class="btn btn-a37" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20Galaxy%20A37%205G.%20Is%20it%20available%3F" target="_blank" rel="noopener">A37 via WhatsApp</a>
+            <a class="btn btn-a57" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20Galaxy%20A57%205G.%20Is%20it%20available%3F" target="_blank" rel="noopener">A57 via WhatsApp</a>
+            <p class="store-note">We'll confirm stock, pricing, and help<br>with pickup or delivery.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="sticky-cta">
+    <div>
+      <strong>A37 vs A57 5G</strong>
+      <p>Now at Connections Curaçao</p>
+    </div>
+    <a class="btn btn-a37" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20Galaxy%20A37%205G.%20Is%20it%20available%3F" target="_blank" rel="noopener">A37</a>
+    <a class="btn btn-a57" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20Galaxy%20A57%205G.%20Is%20it%20available%3F" target="_blank" rel="noopener">A57</a>
+  </div>
+
+  <footer>
+    <div class="shell">
+      Samsung Curaçao · <a href="/">All Samsung</a> · <a href="https://connectionscuracao.net?utm_source=samsungcuracao&amp;utm_medium=referral">Connections Curaçao</a>
+    </div>
+  </footer>
+
+  <script>
+    document.documentElement.classList.add('js');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('in'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = (i * 80) + 'ms';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
