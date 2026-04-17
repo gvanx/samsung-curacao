@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samsung Curaçao — Galaxy Phones at Connections</title>
+  <meta name="description" content="Galaxy A37, A57, S25 Ultra and the full Samsung lineup. Available at Connections Punda &amp; Otrobanda.">
+  <meta property="og:title" content="Samsung Curaçao — Galaxy Phones at Connections">
+  <meta property="og:description" content="The new Galaxy A-series is here. A37 &amp; A57 5G now in stock.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://samsungcuracao.com/">
+  <meta property="og:image" content="https://samsungcuracao.com/img/og/home.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://samsungcuracao.com/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%234ca4d4'/><stop offset='1' stop-color='%23b484f0'/></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23g)'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <style>
+    .hero { position: relative; isolation: isolate; padding: 5rem 0 3rem; text-align: center; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: radial-gradient(50% 70% at 50% 30%, rgba(120,130,210,0.1), transparent 70%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      margin: 1.2rem 0 0; font-family: var(--font-display);
+      font-size: clamp(2.4rem, 8vw, 5rem);
+      font-weight: 900; line-height: 0.98; letter-spacing: -0.03em;
+    }
+    .c-a37 { color: var(--accent-a37); }
+    .c-a57 { color: var(--accent-a57); }
+    .hero-sub { margin: 0.9rem auto 0; color: var(--muted); font-size: 1.05rem; max-width: 52ch; }
+    .hero-phones { display: flex; justify-content: center; gap: 1rem; margin: 2rem 0 1rem; flex-wrap: wrap; }
+    .hero-phone {
+      width: 120px; height: 220px; border-radius: 22px;
+      background: linear-gradient(180deg, rgba(30,30,50,0.8), rgba(12,12,18,0.95));
+      border: 1px solid var(--line); position: relative;
+      box-shadow: var(--shadow);
+    }
+    .hero-phone::after {
+      content: ""; position: absolute; inset: 8px; border-radius: 16px;
+      background: linear-gradient(180deg, var(--accent-c), transparent 70%);
+      opacity: 0.5;
+    }
+    .hero-phone.a37 { --accent-c: rgba(76,164,212,0.6); }
+    .hero-phone.a57 { --accent-c: rgba(180,132,240,0.6); }
+    .hero-phone-label {
+      position: absolute; bottom: -1.6rem; left: 0; right: 0; text-align: center;
+      font-family: var(--font-display); font-weight: 800; font-size: 0.9rem;
+    }
+    .hero-cta { margin-top: 2.5rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 0.7rem; }
+
+    .feature-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem;
+      margin-top: 1.6rem;
+    }
+    .feature-card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.2rem;
+      display: grid; gap: 0.4rem;
+    }
+    .feature-key { font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; color: var(--brand-2); }
+    .feature-label { margin: 0; font-weight: 700; }
+    .feature-desc { margin: 0; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+
+    .catalog-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1rem; margin-top: 1.8rem;
+    }
+    .tile {
+      position: relative;
+      background: linear-gradient(165deg, rgba(12,12,18,0.92), rgba(10,10,14,0.88));
+      border: 1px solid var(--line); border-radius: var(--radius-md);
+      padding: 1.1rem; display: flex; flex-direction: column; gap: 0.5rem;
+      transition: border-color 180ms ease, transform 180ms ease;
+    }
+    .tile:hover { border-color: rgba(120,130,210,0.45); transform: translateY(-3px); }
+    .tile-featured { border-color: rgba(120,130,210,0.35); }
+    .tile img { width: 100%; height: 140px; object-fit: contain; }
+    .tile-name { margin: 0; font-weight: 800; font-family: var(--font-display); font-size: 1rem; letter-spacing: -0.01em; }
+    .tile-price { color: var(--text); font-weight: 700; font-size: 0.9rem; }
+    .tile-price.muted { color: var(--muted); font-weight: 500; font-size: 0.82rem; }
+    .tile-cta { margin-top: auto; font-size: 0.82rem; padding: 0.55rem 0.9rem; }
+    .tile-badge {
+      position: absolute; top: 0.7rem; right: 0.7rem;
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em;
+      font-weight: 800; color: var(--brand-2);
+      background: rgba(120,130,210,0.12); border: 1px solid rgba(120,130,210,0.3);
+      padding: 0.2rem 0.5rem; border-radius: 999px;
+    }
+
+    .store-panel {
+      margin-top: 1.6rem; border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(165deg, rgba(12,12,18,0.9), rgba(10,10,14,0.88));
+      box-shadow: var(--shadow); padding: 1.8rem;
+      display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: start;
+    }
+    .store-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.65rem; }
+    .store-item { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.9rem; line-height: 1.5; color: #b0b0c8; }
+    .store-item .icon { flex-shrink: 0; }
+    .store-item strong { color: var(--text); }
+    .store-cta { display: flex; flex-direction: column; gap: 0.5rem; align-self: center; }
+    .store-cta .btn { text-align: center; white-space: nowrap; min-width: 200px; }
+    .panel-title { margin: 0 0 1rem; font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+
+    @media (max-width: 900px) {
+      .feature-strip { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 840px) {
+      .store-panel { grid-template-columns: 1fr; }
+      .store-cta { align-self: stretch; }
+      .store-cta .btn { min-width: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="shell topbar-row">
+      <a href="/" class="brand" aria-label="Samsung Curaçao home">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Samsung Curaçao</span>
+      </a>
+      <div class="topbar-actions">
+        <a class="nav-back" href="#stores">Visit</a>
+        <a class="nav-tag" href="https://wa.me/59996782619" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <span class="badge">Now in stock</span>
+        <h1>The new Galaxy <span class="c-a37">A37</span> &amp; <span class="c-a57">A57</span> 5G</h1>
+        <p class="hero-sub">At Connections Curaçao. IP68, 50MP camera, 6 years of updates.</p>
+        <div class="hero-phones">
+          <div class="hero-phone a37"><span class="hero-phone-label c-a37">A37</span></div>
+          <div class="hero-phone a57"><span class="hero-phone-label c-a57">A57</span></div>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="/compare">Compare both</a>
+          <a class="btn btn-a37" href="/a37">Explore A37</a>
+          <a class="btn btn-a57" href="/a57">Explore A57</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="shell">
+        <h2 class="section-title">Flagship features. A-series pricing.</h2>
+        <div class="feature-strip reveal">
+          <div class="feature-card">
+            <div class="feature-key">IP68</div>
+            <p class="feature-label">Water &amp; dust proof</p>
+            <p class="feature-desc">Survives 1.5m underwater for 30 minutes. Rain, pool, accidents — covered.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-key">120Hz</div>
+            <p class="feature-label">Super AMOLED display</p>
+            <p class="feature-desc">6.7-inch FHD+ with Gorilla Glass Victus+ on both models.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-key">6yr</div>
+            <p class="feature-label">Android updates</p>
+            <p class="feature-desc">Six generations of OS upgrades plus six years of security patches.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="catalog">
+      <div class="shell">
+        <h2 class="section-title">The full Samsung lineup</h2>
+        <p class="section-note">From the everyday A07 to the flagship S25 Ultra — available at both locations.</p>
+        <div id="catalog-grid" class="catalog-grid reveal"></div>
+      </div>
+    </section>
+
+    <section id="stores">
+      <div class="shell">
+        <h2 class="section-title">Come see them in person</h2>
+        <p class="section-note">Compare side by side. Walk in, try them, walk out with your new Galaxy.</p>
+        <div class="store-panel reveal">
+          <div>
+            <h3 class="panel-title">Our stores</h3>
+            <ul class="store-list">
+              <li class="store-item"><span class="icon">📍</span><div><strong>Connections Punda</strong><br>Ruyterkade 28, Willemstad</div></li>
+              <li class="store-item"><span class="icon">📍</span><div><strong>Connections Otrobanda</strong><br>Bredestraat 12, Willemstad</div></li>
+              <li class="store-item"><span class="icon">🕔</span><div>Mon–Sat 9:00–18:00</div></li>
+            </ul>
+          </div>
+          <div class="store-cta">
+            <a class="btn btn-primary" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20a%20Samsung%20Galaxy.%20Can%20you%20help%3F" target="_blank" rel="noopener">Ask via WhatsApp</a>
+            <a class="btn btn-ghost" href="https://connectionscuracao.net?utm_source=samsungcuracao&amp;utm_medium=referral">See full catalog</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="sticky-cta">
+    <div>
+      <strong>Galaxy A37 &amp; A57 5G</strong>
+      <p>Now at Connections Curaçao</p>
+    </div>
+    <a class="btn btn-a37" href="/a37">A37</a>
+    <a class="btn btn-a57" href="/a57">A57</a>
+  </div>
+
+  <footer>
+    <div class="shell">
+      Samsung Curaçao · Official Samsung retailer at <a href="https://connectionscuracao.net?utm_source=samsungcuracao&amp;utm_medium=referral">Connections Curaçao</a><br>
+      Punda · Otrobanda · WhatsApp +599 9678 2619
+    </div>
+  </footer>
+
+  <script src="js/catalog.js"></script>
+</body>
+</html>
