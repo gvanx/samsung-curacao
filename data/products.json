@@ -1,7 +1,7 @@
 [
   { "name": "Galaxy A37 5G", "suffix": "", "price": 0, "category": "samsung", "featured": true, "image": "galaxy-a37-model.jpg", "landingPage": "/a37" },
   { "name": "Galaxy A57 5G", "suffix": "", "price": 0, "category": "samsung", "featured": true, "image": "galaxy-a57-model.jpg", "landingPage": "/a57" },
-  { "name": "Galaxy S25 Ultra", "suffix": "", "price": 2090, "category": "samsung", "featured": true, "image": "galaxy-s25-ultra-model.jpg" },
+  { "name": "Galaxy S25 Ultra", "suffix": "", "price": 2190, "category": "samsung", "featured": true, "image": "galaxy-s25-ultra-model.jpg" },
   { "name": "Galaxy S25 Plus", "suffix": "", "price": 1549, "category": "samsung", "featured": true, "image": "galaxy-s25-plus-model.jpg" },
   { "name": "Galaxy S25 FE", "suffix": "", "price": 1290, "category": "samsung", "featured": true, "image": "galaxy-s25-fe-model.jpg" },
   { "name": "Galaxy S24 Ultra", "suffix": "", "price": 1850, "category": "samsung", "featured": true, "image": "galaxy-s24-ultra-model.jpg" },
