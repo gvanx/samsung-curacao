@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08080c"/>
+      <stop offset="1" stop-color="#14142a"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4ca4d4"/>
+      <stop offset="1" stop-color="#b484f0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="80" y="180" font-family="Outfit, Avenir, sans-serif" font-weight="800" font-size="42" fill="#9898f0">SAMSUNG CURAÇAO</text>
+  <text x="80" y="340" font-family="Outfit, Avenir, sans-serif" font-weight="900" font-size="110" fill="url(#brand)">Galaxy A37 &amp; A57</text>
+  <text x="80" y="420" font-family="Outfit, Avenir, sans-serif" font-weight="900" font-size="110" fill="#eceaf5">Now in stock.</text>
+  <text x="80" y="530" font-family="Figtree, sans-serif" font-size="32" fill="#9a98b0">At Connections Curaçao · Punda · Otrobanda</text>
+</svg>
