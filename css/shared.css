@@ -168,3 +168,18 @@ footer a { color: var(--brand); border-bottom: 1px solid rgba(120,130,210,0.3); 
   .nav-back, .nav-tag { font-size: 0.78rem; padding: 0.45rem 0.65rem; }
   section { padding: 2.2rem 0; }
 }
+.tile-kingsday {
+  position: absolute;
+  top: 0.55rem;
+  left: 0.55rem;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #FF6600;
+  background: rgba(255, 102, 0, 0.12);
+  border: 1px solid rgba(255, 102, 0, 0.45);
+  padding: 0.22rem 0.5rem;
+  border-radius: 999px;
+}
+.tile { position: relative; }

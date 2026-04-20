@@ -17,15 +17,17 @@ async function loadCatalog() {
 
     grid.innerHTML = ordered.map(p => {
       const name = p.name + (p.suffix ? ' ' + p.suffix : '');
-      const price = p.price ? `<span class="tile-price">NAf ${p.price.toLocaleString()}</span>` : `<span class="tile-price muted">Message for pricing</span>`;
+      const price = p.price ? `<span class="tile-price">XCG ${p.price.toLocaleString()}</span>` : `<span class="tile-price muted">Message for pricing</span>`;
       const cta = p.landingPage
         ? `<a class="btn btn-ghost tile-cta" href="${p.landingPage}">View details</a>`
         : `<a class="btn btn-ghost tile-cta" target="_blank" rel="noopener" href="${waUrl("Hi, I'm interested in the " + name + ". Is it available?")}">${WA_ICON} WhatsApp</a>`;
       const badge = p.featured ? '<span class="tile-badge">Featured</span>' : '';
+      const kingsdayBadge = p.kingsday !== false ? '<span class="tile-kingsday">Kingsday</span>' : '';
       const png = p.image.replace(/\.jpe?g$/i, '.png');
       return `
         <article class="tile ${p.featured ? 'tile-featured' : ''}">
           ${badge}
+          ${kingsdayBadge}
           <img src="img/products/${png}" alt="${name}" loading="lazy" data-fallback="img/products/${p.image}" onerror="if(!this.dataset.fell){this.dataset.fell=1;this.src=this.dataset.fallback}else{this.style.visibility='hidden'}">
           <h3 class="tile-name">${name}</h3>
           ${price}
