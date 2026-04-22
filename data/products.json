@@ -16,8 +16,8 @@
   { "name": "Galaxy S25 Ultra", "suffix": "", "price": 1989, "category": "samsung", "featured": true, "image": "galaxy-s25-ultra-model.jpg" },
   { "name": "Galaxy S26 Ultra", "suffix": "", "price": 2690, "category": "samsung", "featured": true, "image": "galaxy-s26-ultra-model.png" },
   { "name": "Galaxy S26 Ultra 512GB", "suffix": "", "price": 2890, "category": "samsung", "featured": false, "image": "galaxy-s26-ultra-model.png" },
-  { "name": "Galaxy Tab A9+ WiFi", "suffix": "", "price": 399, "category": "samsung", "featured": false, "subcategory": "tablet", "image": "galaxy-tab-generic.png" },
-  { "name": "Galaxy Tab A9 5G+", "suffix": "", "price": 499, "category": "samsung", "featured": false, "subcategory": "tablet", "image": "galaxy-tab-generic.png" },
-  { "name": "Galaxy Tab A11", "suffix": "", "price": 279, "category": "samsung", "featured": false, "subcategory": "tablet", "image": "galaxy-tab-generic.png" },
-  { "name": "Galaxy Tab A11+", "suffix": "", "price": 475, "category": "samsung", "featured": false, "subcategory": "tablet", "image": "galaxy-tab-generic.png" }
+  { "name": "Galaxy Tab A9+ WiFi", "suffix": "", "price": 399, "category": "samsung", "featured": false, "subcategory": "tablet", "image": "galaxy-tab-a9-plus-model.png" },
+  { "name": "Galaxy Tab A9 5G+", "suffix": "", "price": 499, "category": "samsung", "featured": false, "subcategory": "tablet", "image": "galaxy-tab-a9-plus-model.png" },
+  { "name": "Galaxy Tab A11", "suffix": "", "price": 279, "category": "samsung", "featured": false, "subcategory": "tablet", "image": "galaxy-tab-a11-model.png" },
+  { "name": "Galaxy Tab A11+", "suffix": "", "price": 475, "category": "samsung", "featured": false, "subcategory": "tablet", "image": "galaxy-tab-a11-plus-model.png" }
 ]
