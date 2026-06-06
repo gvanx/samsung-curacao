@@ -22,12 +22,12 @@ async function loadCatalog() {
         ? `<a class="btn btn-ghost tile-cta" href="${p.landingPage}">View details</a>`
         : `<a class="btn btn-ghost tile-cta" target="_blank" rel="noopener" href="${waUrl("Hi, I'm interested in the " + name + ". Is it available?")}">${WA_ICON} WhatsApp</a>`;
       const badge = p.featured ? '<span class="tile-badge">Featured</span>' : '';
-      const kingsdayBadge = p.kingsday !== false ? '<span class="tile-kingsday">Bluewave</span>' : '';
+      const bluewaveBadge = p.bluewave === true ? '<span class="tile-kingsday">Bluewave</span>' : '';
       const png = p.image.replace(/\.jpe?g$/i, '.png');
       return `
         <article class="tile ${p.featured ? 'tile-featured' : ''}">
           ${badge}
-          ${kingsdayBadge}
+          ${bluewaveBadge}
           <img src="img/products/${png}" alt="${name}" loading="lazy" data-fallback="img/products/${p.image}" onerror="if(!this.dataset.fell){this.dataset.fell=1;this.src=this.dataset.fallback}else{this.style.visibility='hidden'}">
           <h3 class="tile-name">${name}</h3>
           ${price}
