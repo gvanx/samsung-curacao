@@ -183,3 +183,26 @@ footer a { color: var(--brand); border-bottom: 1px solid rgba(120,130,210,0.3); 
   border-radius: 999px;
 }
 .tile { position: relative; }
+
+/* ===== BLUEWAVE WORLD CUP THEME — START (remove after tournament) ===== */
+:root{
+  --brand:   #2b6dff;            /* electric Curaçao blue (was #7878d4) */
+  --brand-2: #5b9bff;
+  --wc-blue: #0a3a8c;            /* deep flag blue */
+  --wc-gold: #FCD116;            /* flag yellow    */
+  --wc-gold-glow: rgba(252,209,22,0.5);
+}
+.brand-dot{ background: var(--wc-gold) !important; box-shadow: 0 0 10px var(--wc-gold-glow); }
+.btn-primary{ background: var(--wc-gold) !important; color:#0a1230 !important;
+  box-shadow: 0 10px 30px var(--wc-gold-glow) !important; }
+#wc-ribbon{
+  background: linear-gradient(90deg, var(--wc-blue), #1455d6 45%, var(--wc-blue));
+  color:#fff; text-align:center; font:700 .82rem/1.2 var(--font-display);
+  letter-spacing:.04em; padding:.55rem 1rem; border-bottom:2px solid var(--wc-gold);
+}
+#wc-ribbon b{ color: var(--wc-gold); }
+.hero-wc-tag{ display:inline-block; font-size:.78rem; font-weight:800; letter-spacing:.14em;
+  text-transform:uppercase; color: var(--wc-gold); background:rgba(252,209,22,0.12);
+  padding:.3rem .8rem; border-radius:999px; border:1px solid rgba(252,209,22,0.45); }
+.hero-wc-tag .stars{ color:#fff; text-shadow:0 0 8px var(--wc-gold-glow); }
+/* ===== BLUEWAVE WORLD CUP THEME — END ===== */
