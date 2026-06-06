@@ -205,4 +205,7 @@ footer a { color: var(--brand); border-bottom: 1px solid rgba(120,130,210,0.3); 
   text-transform:uppercase; color: var(--wc-gold); background:rgba(252,209,22,0.12);
   padding:.3rem .8rem; border-radius:999px; border:1px solid rgba(252,209,22,0.45); }
 .hero-wc-tag .stars{ color:#fff; text-shadow:0 0 8px var(--wc-gold-glow); }
+/* repurpose the Kingsday tile tag as a Bluewave tag (gold, on-theme) */
+.tile-kingsday{ color:var(--wc-gold)!important; background:rgba(252,209,22,0.12)!important;
+  border-color:rgba(252,209,22,0.45)!important; }
 /* ===== BLUEWAVE WORLD CUP THEME — END ===== */

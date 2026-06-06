@@ -22,7 +22,7 @@ async function loadCatalog() {
         ? `<a class="btn btn-ghost tile-cta" href="${p.landingPage}">View details</a>`
         : `<a class="btn btn-ghost tile-cta" target="_blank" rel="noopener" href="${waUrl("Hi, I'm interested in the " + name + ". Is it available?")}">${WA_ICON} WhatsApp</a>`;
       const badge = p.featured ? '<span class="tile-badge">Featured</span>' : '';
-      const kingsdayBadge = p.kingsday !== false ? '<span class="tile-kingsday">Kingsday</span>' : '';
+      const kingsdayBadge = p.kingsday !== false ? '<span class="tile-kingsday">Bluewave</span>' : '';
       const png = p.image.replace(/\.jpe?g$/i, '.png');
       return `
         <article class="tile ${p.featured ? 'tile-featured' : ''}">
