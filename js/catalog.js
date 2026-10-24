@@ -1,61 +1,123 @@
-const WA = '59996782619';
-const WA_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.6-.9-2.2-.2-.6-.5-.5-.7-.5-.2 0-.4 0-.6 0-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 2 3 4.7 4.2 2.7 1.1 2.7.8 3.2.7.5 0 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3M12 2a10 10 0 00-8.8 15l-1.2 4.3 4.4-1.2A10 10 0 1012 2"/></svg>';
-
-function waUrl(message) {
-  return `https://wa.me/${WA}?text=${encodeURIComponent(message)}`;
-}
-
-async function loadCatalog() {
-  const grid = document.getElementById('catalog-grid');
-  if (!grid) return;
-  try {
-    const res = await fetch('data/products.json', { cache: 'no-store' });
-    const products = await res.json();
-    const featured = products.filter(p => p.featured);
-    const rest = products.filter(p => !p.featured);
-    const ordered = [...featured, ...rest];
-
-    grid.innerHTML = ordered.map(p => {
-      const name = p.name + (p.suffix ? ' ' + p.suffix : '');
-      const price = p.price ? `<span class="tile-price">XCG ${p.price.toLocaleString()}</span>` : `<span class="tile-price muted">Message for pricing</span>`;
-      const cta = p.landingPage
-        ? `<a class="btn btn-ghost tile-cta" href="${p.landingPage}">View details</a>`
-        : `<a class="btn btn-ghost tile-cta" target="_blank" rel="noopener" href="${waUrl("Hi, I'm interested in the " + name + ". Is it available?")}">${WA_ICON} WhatsApp</a>`;
-      const badge = p.featured ? '<span class="tile-badge">Featured</span>' : '';
-      const bluewaveBadge = p.bluewave === true ? '<span class="tile-kingsday">Bluewave</span>' : '';
-      const png = p.image.replace(/\.jpe?g$/i, '.png');
-      return `
-        <article class="tile ${p.featured ? 'tile-featured' : ''}">
-          ${badge}
-          ${bluewaveBadge}
-          <img src="img/products/${png}" alt="${name}" loading="lazy" data-fallback="img/products/${p.image}" onerror="if(!this.dataset.fell){this.dataset.fell=1;this.src=this.dataset.fallback}else{this.style.visibility='hidden'}">
-          <h3 class="tile-name">${name}</h3>
-          ${price}
-          ${cta}
-        </article>`;
-    }).join('');
-  } catch (e) {
-    grid.innerHTML = '<p class="section-note">Catalog is loading. Refresh in a moment, or <a href="https://wa.me/' + WA + '">message us on WhatsApp</a>.</p>';
+(() => {
+  'use strict';
+  const WA = '59996782619';
+  const scriptUrl = document.currentScript?.src || new URL('/js/catalog.js', location.href).href;
+  const siteRoot = new URL('../', scriptUrl);
+  const featuredNames = ['Galaxy S26 Ultra', 'Galaxy A57 5G', 'Galaxy A37 5G'];
+  const fullName = p => [p.name, p.suffix].filter(Boolean).join(' ');
+  const formatPrice = value => Number.isFinite(Number(value)) && Number(value) > 0 ? `XCG ${Number(value).toLocaleString('en-US')}` : 'Ask for price';
+  const family = p => p.subcategory === 'tablet' || /\bTab\b/i.test(p.name) ? 'tablet' : /\bGalaxy S/i.test(p.name) ? 's' : 'a';
+  const waUrl = name => `https://wa.me/${WA}?text=${encodeURIComponent(`Hi Connections! I'm interested in the ${name}. Please confirm the price, storage, colors and availability.`)}`;
+  function element(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
   }
-}
-
-function initReveal() {
-  document.documentElement.classList.add('js');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
-        observer.unobserve(entry.target);
-      }
+  function setProductImage(image, product, onError) {
+    const filename = typeof product.image === 'string' ? product.image.split('/').pop() : '';
+    image.alt = fullName(product);
+    const fail = () => { image.hidden = true; onError?.(); };
+    image.addEventListener('error', fail, { once: true });
+    if (/^[a-z0-9][a-z0-9_.-]*\.(?:png|jpe?g|webp|avif)$/i.test(filename)) image.src = new URL(`img/products/${filename}`, siteRoot).href;
+    else fail();
+  }
+  function productTile(p) {
+    const name = fullName(p);
+    const article = element('article', 'tile');
+    const featured = featuredNames.includes(p.name);
+    if (featured) article.classList.add('tile-featured');
+    const visual = element('div', 'tile-visual');
+    const image = element('img');
+    image.loading = 'lazy'; image.decoding = 'async'; image.width = 400; image.height = 400;
+    const fallback = element('span', 'tile-image-fallback', name);
+    fallback.hidden = true;
+    setProductImage(image, p, () => { fallback.hidden = false; });
+    visual.append(image, fallback);
+    if (featured) visual.append(element('span', 'tile-badge', 'Featured'));
+    const label = family(p) === 'tablet' ? 'Galaxy Tab' : family(p) === 's' ? 'Galaxy S series' : 'Everyday Galaxy';
+    article.append(visual, element('p', 'tile-meta', label), element('h3', 'tile-name', name), element('p', 'tile-price', formatPrice(p.price)));
+    const actions = element('div', 'tile-actions');
+    const landing = /^\/a(?:27|37|57)\/?$/.test(p.landingPage || '') ? p.landingPage : null;
+    if (landing) {
+      const details = element('a', 'btn btn-ghost tile-cta', 'Explore model');
+      details.href = landing; details.setAttribute('aria-label', `Explore ${name}`); actions.append(details);
+    }
+    const whatsapp = element('a', `btn ${landing ? 'btn-ghost' : 'btn-primary'} tile-cta`, 'Ask on WhatsApp');
+    whatsapp.href = waUrl(name); whatsapp.target = '_blank'; whatsapp.rel = 'noopener noreferrer';
+    whatsapp.setAttribute('aria-label', `Ask about ${name} on WhatsApp`);
+    actions.append(whatsapp); article.append(actions);
+    return article;
+  }
+  function hydrateFeatures(products) {
+    const byName = new Map(products.map(p => [fullName(p), p]));
+    document.querySelectorAll('[data-price-for]').forEach(node => {
+      const p = byName.get(node.dataset.priceFor);
+      if (p) node.textContent = formatPrice(p.price);
     });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach((el, i) => {
-    el.style.transitionDelay = (i * 80) + 'ms';
-    observer.observe(el);
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initReveal();
-  loadCatalog();
-});
+    document.querySelectorAll('[data-image-for]').forEach(image => {
+      const p = byName.get(image.dataset.imageFor);
+      if (p && image.tagName === 'IMG') setProductImage(image, p, () => image.insertAdjacentElement('afterend', element('span', 'product-image-fallback', fullName(p))));
+    });
+  }
+  function renderCatalog(products, grid) {
+    const search = document.getElementById('catalog-search');
+    const sort = document.getElementById('catalog-sort');
+    const count = document.getElementById('catalog-count');
+    const reset = document.getElementById('catalog-reset');
+    const empty = document.getElementById('catalog-empty');
+    const filters = [...document.querySelectorAll('[data-filter]')];
+    let activeFilter = filters.find(b => b.getAttribute('aria-pressed') === 'true')?.dataset.filter || 'all';
+    function update() {
+      const query = (search?.value || '').trim().toLocaleLowerCase();
+      const visible = products.filter(p => (activeFilter === 'all' || family(p) === activeFilter) && fullName(p).toLocaleLowerCase().includes(query));
+      const order = sort?.value || 'featured';
+      const rank = p => { const i = featuredNames.indexOf(p.name); return i < 0 ? featuredNames.length : i; };
+      visible.sort(order === 'price-asc' ? (a, b) => Number(a.price) - Number(b.price) : order === 'price-desc' ? (a, b) => Number(b.price) - Number(a.price) : (a, b) => rank(a) - rank(b));
+      grid.replaceChildren(...visible.map(productTile));
+      if (count) count.textContent = `${visible.length} ${visible.length === 1 ? 'model' : 'models'}`;
+      if (empty) empty.hidden = visible.length > 0;
+      if (reset) reset.hidden = visible.length > 0;
+      if (!visible.length && !empty) grid.append(element('p', 'catalog-empty-message', 'No models match your search. Try another model or reset the filters.'));
+      filters.forEach(button => {
+        const selected = button.dataset.filter === activeFilter;
+        button.setAttribute('aria-pressed', String(selected)); button.classList.toggle('active', selected); button.classList.toggle('is-active', selected);
+      });
+    }
+    filters.forEach(button => button.addEventListener('click', () => { activeFilter = button.dataset.filter; update(); }));
+    search?.addEventListener('input', update); sort?.addEventListener('change', update);
+    reset?.addEventListener('click', () => { activeFilter = 'all'; if (search) search.value = ''; if (sort) sort.value = 'featured'; update(); search?.focus(); });
+    update();
+  }
+  async function loadCatalog() {
+    const grid = document.getElementById('catalog-grid');
+    try {
+      const response = await fetch(new URL('data/products.json', siteRoot), { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Catalog request failed: ${response.status}`);
+      const data = await response.json();
+      if (!Array.isArray(data)) throw new Error('Unexpected catalog format');
+      const products = data.filter(p => p && typeof p.name === 'string' && p.category === 'samsung');
+      if (!products.length) throw new Error('Empty catalog');
+      hydrateFeatures(products); if (grid) renderCatalog(products, grid);
+    } catch (error) {
+      if (grid) {
+        const message = element('div', 'catalog-error');
+        message.append(element('p', 'section-note', 'We couldn’t load the catalog. Our team can help you find your Galaxy and confirm current prices.'));
+        const link = element('a', 'btn btn-primary', 'Ask on WhatsApp');
+        link.href = `https://wa.me/${WA}`; link.target = '_blank'; link.rel = 'noopener noreferrer'; message.append(link); grid.replaceChildren(message);
+      }
+      const count = document.getElementById('catalog-count'); if (count) count.textContent = 'Contact us for the current collection';
+      const empty = document.getElementById('catalog-empty'); if (empty) empty.hidden = true;
+    }
+  }
+  function initReveal() {
+    const nodes = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) { nodes.forEach(n => n.classList.add('in')); return; }
+    document.documentElement.classList.add('js');
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('in'); observer.unobserve(entry.target); } }), { threshold: 0.08 });
+    nodes.forEach(node => observer.observe(node));
+  }
+  window.initReveal = initReveal;
+  function init() { initReveal(); loadCatalog(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true }); else init();
+})();
