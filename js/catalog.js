@@ -3,9 +3,10 @@
   const WA = '59996782619';
   const scriptUrl = document.currentScript?.src || new URL('/js/catalog.js', location.href).href;
   const siteRoot = new URL('../', scriptUrl);
+  const sourceModule = import(new URL('catalog-source.mjs', scriptUrl).href);
   const featuredNames = ['Galaxy S26 Ultra', 'Galaxy A57 5G', 'Galaxy A37 5G'];
   const fullName = p => [p.name, p.suffix].filter(Boolean).join(' ');
-  const formatPrice = value => Number.isFinite(Number(value)) && Number(value) > 0 ? `XCG ${Number(value).toLocaleString('en-US')}` : 'Ask for price';
+  const formatPrice = value => Number.isFinite(Number(value)) && Number(value) > 0 ? `XCG ${Number(value).toLocaleString('en-US')}` : 'Ask for current price';
   const family = p => p.subcategory === 'tablet' || /\bTab\b/i.test(p.name) ? 'tablet' : /\bGalaxy S/i.test(p.name) ? 's' : 'a';
   const waUrl = name => `https://wa.me/${WA}?text=${encodeURIComponent(`Hi Connections! I'm interested in the ${name}. Please confirm the price, storage, colors and availability.`)}`;
   function element(tag, className, text) {
@@ -15,11 +16,12 @@
     return node;
   }
   function setProductImage(image, product, onError) {
-    const filename = typeof product.image === 'string' ? product.image.split('/').pop() : '';
+    const source = typeof product.image === 'string' ? product.image : '';
     image.alt = fullName(product);
     const fail = () => { image.hidden = true; onError?.(); };
     image.addEventListener('error', fail, { once: true });
-    if (/^[a-z0-9][a-z0-9_.-]*\.(?:png|jpe?g|webp|avif)$/i.test(filename)) image.src = new URL(`img/products/${filename}`, siteRoot).href;
+    if (source.startsWith('https://connectionscuracao.net/img/')) image.src = source;
+    else if (/^[a-z0-9][a-z0-9_.-]*\.(?:png|jpe?g|webp|avif)$/i.test(source)) image.src = new URL(`img/products/${source}`, siteRoot).href;
     else fail();
   }
   function productTile(p) {
@@ -53,14 +55,15 @@
     const byName = new Map(products.map(p => [fullName(p), p]));
     document.querySelectorAll('[data-price-for]').forEach(node => {
       const p = byName.get(node.dataset.priceFor);
-      if (p) node.textContent = formatPrice(p.price);
+      node.textContent = formatPrice(p?.price);
     });
     document.querySelectorAll('[data-image-for]').forEach(image => {
       const p = byName.get(image.dataset.imageFor);
       if (p && image.tagName === 'IMG') setProductImage(image, p, () => image.insertAdjacentElement('afterend', element('span', 'product-image-fallback', fullName(p))));
     });
   }
-  function renderCatalog(products, grid) {
+  function renderCatalog(initialProducts, grid) {
+    let products = initialProducts;
     const search = document.getElementById('catalog-search');
     const sort = document.getElementById('catalog-sort');
     const count = document.getElementById('catalog-count');
@@ -87,27 +90,58 @@
     filters.forEach(button => button.addEventListener('click', () => { activeFilter = button.dataset.filter; update(); }));
     search?.addEventListener('input', update); sort?.addEventListener('change', update);
     reset?.addEventListener('click', () => { activeFilter = 'all'; if (search) search.value = ''; if (sort) sort.value = 'featured'; update(); search?.focus(); });
-    update();
+    const setProducts = next => {
+      products = next;
+      if (sort) sort.disabled = products.every(product => product.price === null);
+      update();
+    };
+    setProducts(products);
+    return setProducts;
   }
+  let setCatalogProducts;
+  let lastProducts = [];
+  let refreshing = false;
+  let lastAttempt = 0;
   async function loadCatalog() {
+    if (refreshing) return;
+    refreshing = true;
+    lastAttempt = Date.now();
     const grid = document.getElementById('catalog-grid');
-    try {
-      const response = await fetch(new URL('data/products.json', siteRoot), { cache: 'no-store' });
-      if (!response.ok) throw new Error(`Catalog request failed: ${response.status}`);
-      const data = await response.json();
-      if (!Array.isArray(data)) throw new Error('Unexpected catalog format');
-      const products = data.filter(p => p && typeof p.name === 'string' && p.category === 'samsung');
-      if (!products.length) throw new Error('Empty catalog');
-      hydrateFeatures(products); if (grid) renderCatalog(products, grid);
-    } catch (error) {
+    const status = document.getElementById('catalog-sync-status');
+    const showProducts = products => {
+      hydrateFeatures(products);
       if (grid) {
+        if (setCatalogProducts) setCatalogProducts(products);
+        else setCatalogProducts = renderCatalog(products, grid);
+      }
+    };
+    try {
+      const source = await sourceModule;
+      const result = await source.loadCatalog({ siteRoot });
+      lastProducts = result.products;
+      showProducts(result.products);
+      document.documentElement.dataset.catalogSource = result.live ? 'connections' : 'unavailable';
+      if (status) status.textContent = result.live
+        ? 'Prices update automatically from Connections.'
+        : 'Current prices are unavailable. Ask our team for the latest price.';
+    } catch (error) {
+      hydrateFeatures([]);
+      document.documentElement.dataset.catalogSource = 'unavailable';
+      if (status) status.textContent = 'Current prices are unavailable. Ask our team for the latest price.';
+      if (lastProducts.length) {
+        showProducts(lastProducts.map(product => ({ ...product, price: null })));
+      } else if (grid) {
         const message = element('div', 'catalog-error');
         message.append(element('p', 'section-note', 'We couldn’t load the catalog. Our team can help you find your Galaxy and confirm current prices.'));
         const link = element('a', 'btn btn-primary', 'Ask on WhatsApp');
         link.href = `https://wa.me/${WA}`; link.target = '_blank'; link.rel = 'noopener noreferrer'; message.append(link); grid.replaceChildren(message);
       }
-      const count = document.getElementById('catalog-count'); if (count) count.textContent = 'Contact us for the current collection';
-      const empty = document.getElementById('catalog-empty'); if (empty) empty.hidden = true;
+      if (!lastProducts.length) {
+        const count = document.getElementById('catalog-count'); if (count) count.textContent = 'Contact us for the current collection';
+        const empty = document.getElementById('catalog-empty'); if (empty) empty.hidden = true;
+      }
+    } finally {
+      refreshing = false;
     }
   }
   function initReveal() {
@@ -118,6 +152,19 @@
     nodes.forEach(node => observer.observe(node));
   }
   window.initReveal = initReveal;
-  function init() { initReveal(); loadCatalog(); }
+  function init() {
+    initReveal();
+    loadCatalog();
+    // Keep long-lived tabs current without recreating filter event listeners.
+    sourceModule.then(({ REFRESH_INTERVAL_MS }) => {
+      setInterval(() => { if (!document.hidden) loadCatalog(); }, REFRESH_INTERVAL_MS);
+    }).catch(() => { /* The load handler already shows the no-price fallback. */ });
+    const refreshOnReturn = () => {
+      if (!document.hidden && Date.now() - lastAttempt > 30 * 1000) loadCatalog();
+    };
+    window.addEventListener('focus', refreshOnReturn);
+    window.addEventListener('online', () => loadCatalog());
+    document.addEventListener('visibilitychange', refreshOnReturn);
+  }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true }); else init();
 })();
