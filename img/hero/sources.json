@@ -1,0 +1,17 @@
+{
+  "galaxy-s26-ultra.png": {
+    "product": "Samsung Galaxy S26 Ultra — Cobalt Violet",
+    "dimensions": "1400x1400",
+    "source": "https://images.samsung.com/is/image/samsung/p6pim/us/s2602/gallery/us-galaxy-s26-ultra-s948-sm-s948uzvaxaa-550993934?fmt=png-alpha&wid=1400&hei=1400"
+  },
+  "galaxy-a57.png": {
+    "product": "Samsung Galaxy A57 5G — Awesome Icyblue",
+    "dimensions": "1400x1400",
+    "source": "https://images.samsung.com/is/image/samsung/p6pim/us/sm-a576ulbaxaa/gallery/us-galaxy-a57-5g-sm-a576-584976-sm-a576ulbaxaa-552898494?fmt=png-alpha&wid=1400&hei=1400"
+  },
+  "galaxy-a37.png": {
+    "product": "Samsung Galaxy A37 5G — Awesome Charcoal",
+    "dimensions": "1400x1400",
+    "source": "https://images.samsung.com/is/image/samsung/p6pim/ca/sm-a376wzafxac/gallery/ca-galaxy-a37-5g-sm-a376-sm-a376wzafxac-552036498?fmt=png-alpha&wid=1400&hei=1400"
+  }
+}
