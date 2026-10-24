@@ -5,3 +5,5 @@
 @media(max-width:480px){.header-chat{display:none}.hero h1{font-size:43px}.hero-copy{padding:30px 22px 18px}.hero-product{padding-inline:22px}.button-row{gap:16px}.button-row .button{font-size:11px;padding-inline:18px}.button-row .text-link{font-size:11px}.highlight{padding:25px 20px}.highlight h3{font-size:27px}.highlight-image{width:37%}.highlight-image img{width:360px;height:360px}.filter-tabs button{font-size:9px;padding-inline:9px}.tile{padding:10px}.tile-visual{height:150px}.tile-name{font-size:17px}.mobile-contact>span{font-size:10px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.tile:hover,.button:hover{transform:none}}
 @media(max-width:480px){.highlight-image img{width:280px;height:280px;left:65%}.highlight-copy{max-width:68%}.highlight{min-height:285px}.hero h1{font-size:42px}}
+
+.catalog-sync-status{font-size:11px;color:var(--muted);line-height:1.7;margin:20px 0 0}

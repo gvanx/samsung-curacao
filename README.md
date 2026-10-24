@@ -11,23 +11,36 @@ Samsung Galaxy phones and tablets at [samsungcuracao.com](https://samsungcuracao
 ## Stack and hosting
 Static HTML, vanilla JavaScript, `css/home.css` for the homepage and `css/shared.css` for product pages. Existing Netlify hosting and routes are retained.
 
-## Catalog prices
-`data/products.json` is a local snapshot of the Samsung category in the main Connections catalog. Refresh it before publishing catalog changes:
+## Automatic catalog prices
+The Connections public catalog is the single source for Samsung catalog prices:
+`https://connectionscuracao.net/data/products.json`.
+
+The Netlify rewrite in `_redirects` exposes that catalog at the same-origin `/data/connections-products.json`. `js/catalog-source.mjs` fetches it with browser caching disabled and an eight-second timeout. No credentials, scheduled job, or redeployment is needed for Connections price changes to appear on Samsung.
+
+Prices load whenever a page opens, refresh every five minutes while visible, and refresh when visitors return to a tab after 30 seconds or reconnect to the internet. Search, filter and sort choices persist across refreshes. Homepage features, catalog cards, A27/A37/A57 pages and the comparison use the same current data. Images resolve to Connections so new catalog models also appear automatically.
+
+If Connections is unavailable or sends invalid data, the local snapshot supplies product names/images only: saved numeric prices are suppressed and the page says “Ask for current price.” Removed feature models also show that message. Price sorting is disabled while current prices are unavailable. The site does not claim real-time inventory.
+
+The Fold 8 preorder has its own existing variant pricing/deposit calculator and is not part of the Connections catalog sync.
+
+### Fallback snapshot maintenance
+The optional command below refreshes the product/image fallback. It is not required to update live prices:
 
 ```sh
 node scripts/sync-catalog.mjs
 ```
 
-The script downloads missing product images, preserves local product routes and writes source/date details to `data/catalog-meta.json`. Displayed product-page and homepage feature prices use that same snapshot. This is a manual refresh; the website does not claim real-time stock. WhatsApp requests confirm price, color, storage and availability with the team.
+It downloads missing images and records snapshot source/date in `data/catalog-meta.json`.
 
-## Local preview
+## Validation and local preview
 ```sh
+node --test tests/catalog-source.test.mjs
 python -m http.server 4173
 ```
 
-Check the homepage, mobile layout, catalog search/filter/sort, product prices and the existing preorder page before publishing. No dependency installation or application build is needed.
+A basic static server does not implement the Netlify proxy; it intentionally shows the no-price fallback. Test the live route on Netlify or use Netlify Dev for a full local proxy preview. No application build is needed.
 
 ## Assets
-High-resolution Samsung product imagery is in `img/hero/`. Official source URLs are recorded in `img/hero/sources.json`. The raster social preview is `img/og/home.png`.
+High-resolution Samsung product imagery is in `img/hero/`, with official sources in `img/hero/sources.json`. The raster social preview is `img/og/home.png`.
 
 Main site: [connectionscuracao.net](https://connectionscuracao.net) · Source: `gvanx/connections-curacao`.
